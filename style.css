@@ -2422,3 +2422,60 @@ html {
     color: var(--bg-primary);
     transform: scale(1.05);
 }
+
+/* =========================================
+   3D INTERACTIVE CARDS & GLARE
+   ========================================= */
+.card {
+    position: relative;
+    will-change: transform;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+
+.card-glare {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* =========================================
+   ENHANCED GLASSMORPHISM & PARALLAX
+   ========================================= */
+.card {
+    /* Ensure glass look is prominent */
+    background: rgba(255, 255, 255, 0.05) !important; /* Very translucent */
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    
+    /* Ensure text is readable */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Light mode specific glass adjustments if needed */
+body.light-mode .card {
+    background: rgba(255, 255, 255, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+
+/* Inner elements spacing for 3D effect */
+.card h2, .card img, .card .role, .card p, .card .card-btn {
+    /* Ensure they are on their own layer for z-index/3d */
+    position: relative; 
+    transition: transform 0.1s ease;
+}
+
+.card img {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
