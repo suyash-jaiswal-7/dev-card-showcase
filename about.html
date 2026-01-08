@@ -921,13 +921,49 @@
             </div>
         </section>
 
-        <!-- CONTRIBUTORS: START COPYING TESTIMONIAL TEMPLATE -->
-<div class="testimonial-card">
-  <h3>Your Name</h3>
-  <p>"Write your feedback about the Community Card Showcase here."</p>
-</div>
-<!-- CONTRIBUTORS: END -->
+        <section id="add-testimonial">
+  <h2>Share Your Feedback</h2>
+  <input type="text" id="username" placeholder="Your Name">
+  <textarea id="feedback" placeholder="Write your feedback"></textarea>
+  <button onclick="addTestimonial()">Submit</button>
 
+  <div id="testimonial-list"></div>
+</section>
+
+<script>
+function addTestimonial() {
+  const name = document.getElementById('username').value.trim();
+  const feedback = document.getElementById('feedback').value.trim();
+  if (!name || !feedback) return alert('Please fill both fields');
+
+  const testimonialList = document.getElementById('testimonial-list');
+  const card = document.createElement('div');
+  card.className = 'testimonial-card';
+  card.innerHTML = `<h3>${name}</h3><p>"${feedback}"</p>`;
+  testimonialList.appendChild(card);
+
+  // Optional: Save in localStorage
+  const saved = JSON.parse(localStorage.getItem('testimonials') || '[]');
+  saved.push({name, feedback});
+  localStorage.setItem('testimonials', JSON.stringify(saved));
+
+  // Clear inputs
+  document.getElementById('username').value = '';
+  document.getElementById('feedback').value = '';
+}
+
+// Load saved testimonials on page load
+window.onload = () => {
+  const saved = JSON.parse(localStorage.getItem('testimonials') || '[]');
+  const testimonialList = document.getElementById('testimonial-list');
+  saved.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'testimonial-card';
+    card.innerHTML = `<h3>${t.name}</h3><p>"${t.feedback}"</p>`;
+    testimonialList.appendChild(card);
+  });
+}
+</script>
 
         <!-- Minimal footer -->
         <footer class="footer">
